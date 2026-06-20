@@ -65,7 +65,6 @@
     return frags.map((f) => f.t).join("").replace(/\s+/g, "").toLowerCase();
   }
 
-  const SPONSORED_NEEDLES = ["sponsored", "đượctàitrợ", "tàitrợ", "quảngcáo"];
   const SUGGEST_NEEDLES = [
     "suggestedforyou",
     "suggestedgroups",
@@ -97,43 +96,24 @@
       return "reels";
     }
 
-    // Header zone = top ~130px of the story; only look there for labels so we
-    // don't misread post body text.
-    const storyTop = story.getBoundingClientRect().top;
-
     // Suggestions: the unit title sits at the very top.
     const headerText = paintedVisualText(story).slice(0, 80);
     if (SUGGEST_NEEDLES.some((n) => headerText.includes(n))) {
       return "suggestions";
     }
 
-    // Sponsored / ads, primary signal.
-    // Facebook no longer writes the word "Sponsored" as text: the visible label
-    // is built from sprite `<i background-image>` slices (plus shuffled decoys),
-    // so text matching is unreliable. Detect ads structurally instead.
-    //
-    // IMPORTANT: `data-ad-rendering-role` by itself is NOT ad specific. Normal
-    // posts tag their own components (profile_name, story_message, like_button,
-    // comment_button) with it too, so matching it alone hides real posts. The
-    // ad ONLY markers are the comet ad preview wrapper attributes and the call
-    // to action role `cta-` (organic posts have no CTA button).
-    if (
-      story.querySelector("[data-ad-comet-preview], [data-ad-preview]") ||
-      story.querySelector('[data-ad-rendering-role="cta-"]')
-    ) {
+    // Sponsored / ads.
+    // The visible "Sponsored" label is built from shuffled sprite image slices
+    // (not text), so text matching is unreliable AND dangerous: organic posts
+    // that merely contain words like "tài trợ" / "quảng cáo" would be hidden.
+    // Facebook also tags EVERY post's components (profile_name, story_message,
+    // like_button, comment_button) with `data-ad-rendering-role`, and organic
+    // page posts can carry the `cta-` role, so neither of those is ad specific.
+    // The only markers seen exclusively on ads (and absent on the verified
+    // organic posts) are the comet ad preview wrapper attributes, so we key off
+    // just those. This favors never hiding a real post over catching every ad.
+    if (story.querySelector("[data-ad-comet-preview], [data-ad-preview]")) {
       return "sponsored";
-    }
-
-    // Fallback: a few surfaces still render a (scrambled) text label. Reconstruct
-    // the visually-painted label in visual order and match localized needles.
-    const labels = story.querySelectorAll('a[role="link"], a[aria-label], span');
-    for (const el of labels) {
-      const r = el.getBoundingClientRect();
-      if (r.width === 0 || r.top - storyTop > 130) continue;
-      const t = paintedVisualText(el);
-      if (t.length >= 6 && t.length <= 40 && SPONSORED_NEEDLES.some((n) => t.includes(n))) {
-        return "sponsored";
-      }
     }
     return null;
   }

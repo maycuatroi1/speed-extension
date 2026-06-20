@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FB Speed: Feed Declutter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Tăng tốc Facebook: ẩn các unit nặng DOM (Reels, Stories, Suggested, Sponsored) và chặn autoplay video. Có thể bật tắt từng tính năng.",
   "icons": {
     "16": "icon16.png",
