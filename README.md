@@ -58,13 +58,30 @@ Origin**.
 
 ## Install
 
+On another machine, first get the code:
+
+```bash
+git clone https://github.com/maycuatroi1/speed-extension.git
+```
+
 > Note: Chrome (stable, v137+) **no longer honors `--load-extension` from the
-> command line**. Load it through the UI:
+> command line**, so the last step must happen in the UI.
+
+**Quick (Windows):** run the helper — it pulls the latest, copies the folder
+path to your clipboard, and opens the extensions page:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+
+**Manual (any OS):**
 
 1. Open `chrome://extensions/`
 2. Toggle **Developer mode** (top-right) on
 3. Click **Load unpacked** and select this `speed-extension/` folder
 4. Open/refresh facebook.com — junk units disappear; click the toolbar icon to toggle features
+
+After updating the code, click the **reload** (⟳) icon on the extension card.
 
 ## Verified
 
