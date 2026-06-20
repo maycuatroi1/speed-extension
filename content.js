@@ -1,4 +1,4 @@
-/* FB Speed — Feed Declutter
+/* FB Speed: Feed Declutter
  *
  * Investigation that motivated this (measured live with Chrome DevTools on
  * facebook.com, logged in):
@@ -107,15 +107,20 @@
       return "suggestions";
     }
 
-    // Sponsored / ads — primary signal.
+    // Sponsored / ads, primary signal.
     // Facebook no longer writes the word "Sponsored" as text: the visible label
     // is built from sprite `<i background-image>` slices (plus shuffled decoys),
-    // so text matching is unreliable. But it DOES tag every ad's sub-components
-    // with `data-ad-rendering-role` (profile_name / story_message / cta- / title
-    // / like_button / …) and marks the wrapper with `data-ad-comet-preview` /
-    // `data-ad-preview`. Those attributes only appear on ads, so detect the ad
-    // structurally — robust against the label obfuscation.
-    if (story.querySelector("[data-ad-rendering-role], [data-ad-comet-preview], [data-ad-preview]")) {
+    // so text matching is unreliable. Detect ads structurally instead.
+    //
+    // IMPORTANT: `data-ad-rendering-role` by itself is NOT ad specific. Normal
+    // posts tag their own components (profile_name, story_message, like_button,
+    // comment_button) with it too, so matching it alone hides real posts. The
+    // ad ONLY markers are the comet ad preview wrapper attributes and the call
+    // to action role `cta-` (organic posts have no CTA button).
+    if (
+      story.querySelector("[data-ad-comet-preview], [data-ad-preview]") ||
+      story.querySelector('[data-ad-rendering-role="cta-"]')
+    ) {
       return "sponsored";
     }
 

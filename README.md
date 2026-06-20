@@ -1,4 +1,4 @@
-# FB Speed — Feed Declutter
+# FB Speed: Feed Declutter
 
 A tiny Manifest V3 Chrome extension that makes facebook.com lighter by removing
 the heaviest, lowest-value parts of the feed and stopping video autoplay.
@@ -27,18 +27,18 @@ idle-time sweep the content script classifies each story (scoped to the main
 feed column, ignoring the Messenger chat list which reuses the same wrapper) and
 hides the junk ones:
 
-- **Suggestions** — "Your group suggestions", "Suggested for you", "People you may know" (heaviest)
+- **Suggestions**: "Your group suggestions", "Suggested for you", "People you may know" (heaviest)
 - **Reels tray**
 - **Stories tray**
-- **Sponsored** — best-effort (see caveat)
-- **Stop autoplay** — pauses videos once on appearance; manual click-to-play still works
-- **Hide right rail** — optional (off by default)
+- **Sponsored**: best-effort (see caveat)
+- **Stop autoplay**: pauses videos once on appearance; manual click-to-play still works
+- **Hide right rail**: optional (off by default)
 
 All features are toggles in the popup; settings persist via `chrome.storage.sync`.
 
 ### How Sponsored detection works
 
-Facebook no longer renders the word "Sponsored" / "Được tài trợ" as text — the
+Facebook no longer renders the word "Sponsored" / "Được tài trợ" as text: the
 visible label is assembled from **sprite image slices** (`<i background-image>`
 with shuffled `background-position`, plus decoys) specifically to defeat text
 matching.
@@ -67,7 +67,7 @@ git clone https://github.com/maycuatroi1/speed-extension.git
 > Note: Chrome (stable, v137+) **no longer honors `--load-extension` from the
 > command line**, so the last step must happen in the UI.
 
-**Quick (Windows):** run the helper — it pulls the latest, copies the folder
+**Quick (Windows):** run the helper: it pulls the latest, copies the folder
 path to your clipboard, and opens the extensions page:
 
 ```powershell
@@ -79,7 +79,7 @@ powershell -ExecutionPolicy Bypass -File install.ps1
 1. Open `chrome://extensions/`
 2. Toggle **Developer mode** (top-right) on
 3. Click **Load unpacked** and select this `speed-extension/` folder
-4. Open/refresh facebook.com — junk units disappear; click the toolbar icon to toggle features
+4. Open/refresh facebook.com: junk units disappear; click the toolbar icon to toggle features
 
 After updating the code, click the **reload** (⟳) icon on the extension card.
 
@@ -92,10 +92,10 @@ posts.
 
 ## Files
 
-- `manifest.json` — MV3 manifest (content script + popup)
-- `content.js` — classification + hiding + autoplay logic
-- `content.css` — `.fbspeed-hide` + right-rail rule
-- `popup.html` / `popup.js` — feature toggles
+- `manifest.json`: MV3 manifest (content script + popup)
+- `content.js`: classification + hiding + autoplay logic
+- `content.css`: `.fbspeed-hide` + right-rail rule
+- `popup.html` / `popup.js`: feature toggles
 
 ## Tuning
 

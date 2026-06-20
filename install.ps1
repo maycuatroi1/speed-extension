@@ -1,4 +1,4 @@
-# FB Speed — install helper (Windows / PowerShell)
+# FB Speed install helper (Windows, PowerShell)
 #
 # Chrome (stable) blocks loading unpacked extensions from the command line, so
 # the final "Load unpacked" click must happen in the UI. This script does

@@ -1,4 +1,4 @@
-/* FB Speed — static CSS hooks.
+/* FB Speed static CSS hooks.
  * Per-story hiding is applied by content.js via the .fbspeed-hide class.
  * Chrome-level regions are gated by classes on <html> toggled from settings. */
 
@@ -12,4 +12,4 @@ html.fbspeed-no-rightrail div[role="complementary"] {
 }
 
 /* Optional: collapse the very wide layout gutters a touch when right rail is gone
- * (kept conservative — Facebook owns its own layout). */
+ * (kept conservative, Facebook owns its own layout). */

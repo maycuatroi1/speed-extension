@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "FB Speed — Feed Declutter",
-  "version": "0.1.0",
-  "description": "Tăng tốc Facebook: ẩn các unit nặng DOM (Reels/Stories/Suggested/Sponsored) và chặn autoplay video. Best-effort, có thể bật/tắt từng tính năng.",
+  "name": "FB Speed: Feed Declutter",
+  "version": "0.2.0",
+  "description": "Tăng tốc Facebook: ẩn các unit nặng DOM (Reels, Stories, Suggested, Sponsored) và chặn autoplay video. Có thể bật tắt từng tính năng.",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/*", "https://web.facebook.com/*"],
@@ -14,7 +20,13 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "FB Speed"
+    "default_title": "FB Speed",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   },
   "permissions": ["storage"],
   "host_permissions": ["https://www.facebook.com/*", "https://web.facebook.com/*"]
