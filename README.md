@@ -36,13 +36,25 @@ hides the junk ones:
 
 All features are toggles in the popup; settings persist via `chrome.storage.sync`.
 
-### Sponsored caveat
+### How Sponsored detection works
 
-Facebook deliberately scrambles the "Sponsored" / "Được tài trợ" label (decoy
-characters + CSS reordering) to defeat text matching. This extension
-reconstructs the *visually rendered* label in visual order, which catches many
-ads but **not all**. For airtight ad blocking, pair this with **uBlock Origin**
-(it has a maintained Facebook filter list).
+Facebook no longer renders the word "Sponsored" / "Được tài trợ" as text — the
+visible label is assembled from **sprite image slices** (`<i background-image>`
+with shuffled `background-position`, plus decoys) specifically to defeat text
+matching.
+
+Instead of trying to decode the sprite, this extension keys off the structural
+markup Facebook uses to *build* an ad: every ad's sub-components are tagged with
+**`data-ad-rendering-role`** (`profile_name`, `story_message`, `cta-`, `title`,
+`like_button`, …) and the wrapper carries **`data-ad-comet-preview` /
+`data-ad-preview`**. Those attributes appear only on ads, so the ad is detected
+reliably regardless of how the label is obfuscated. (A visual-order text
+reconstruction is kept as a fallback for surfaces that still use a text label.)
+
+Verified live: a real sponsored post (VietnamWorks ad) was caught while
+scrolling and hidden (`display: none`). If Facebook renames these attributes,
+update the selector in `classify()`; for a second layer, pair with **uBlock
+Origin**.
 
 ## Install
 

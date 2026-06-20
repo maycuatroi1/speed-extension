@@ -107,7 +107,20 @@
       return "suggestions";
     }
 
-    // Sponsored: scan small label-sized elements in the header zone.
+    // Sponsored / ads — primary signal.
+    // Facebook no longer writes the word "Sponsored" as text: the visible label
+    // is built from sprite `<i background-image>` slices (plus shuffled decoys),
+    // so text matching is unreliable. But it DOES tag every ad's sub-components
+    // with `data-ad-rendering-role` (profile_name / story_message / cta- / title
+    // / like_button / …) and marks the wrapper with `data-ad-comet-preview` /
+    // `data-ad-preview`. Those attributes only appear on ads, so detect the ad
+    // structurally — robust against the label obfuscation.
+    if (story.querySelector("[data-ad-rendering-role], [data-ad-comet-preview], [data-ad-preview]")) {
+      return "sponsored";
+    }
+
+    // Fallback: a few surfaces still render a (scrambled) text label. Reconstruct
+    // the visually-painted label in visual order and match localized needles.
     const labels = story.querySelectorAll('a[role="link"], a[aria-label], span');
     for (const el of labels) {
       const r = el.getBoundingClientRect();
