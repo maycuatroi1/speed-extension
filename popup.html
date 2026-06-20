@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        font: 13px/1.45 -apple-system, "Segoe UI", system-ui, sans-serif;
+        width: 260px;
+        margin: 0;
+        padding: 12px 14px;
+      }
+      h1 { font-size: 14px; margin: 0 0 2px; }
+      p.sub { margin: 0 0 10px; opacity: 0.65; font-size: 11.5px; }
+      label {
+        display: flex; align-items: center; gap: 9px;
+        padding: 6px 0; cursor: pointer;
+      }
+      label span.t { flex: 1; }
+      label small { display: block; opacity: 0.6; font-size: 10.5px; }
+      input[type="checkbox"] { width: 16px; height: 16px; accent-color: #1b74e4; }
+      .note {
+        margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(128,128,128,.25);
+        font-size: 10.5px; opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>FB Speed</h1>
+    <p class="sub">Ẩn unit nặng DOM &amp; chặn autoplay để Facebook nhẹ hơn.</p>
+
+    <label><input type="checkbox" id="hideSuggestions" /><span class="t">Ẩn Gợi ý<small>nhóm / người / trang gợi ý (nặng DOM nhất)</small></span></label>
+    <label><input type="checkbox" id="hideReels" /><span class="t">Ẩn Reels tray</span></label>
+    <label><input type="checkbox" id="hideStories" /><span class="t">Ẩn Stories tray</span></label>
+    <label><input type="checkbox" id="hideSponsored" /><span class="t">Ẩn Sponsored<small>best-effort — FB xáo chữ, không chắc 100%</small></span></label>
+    <label><input type="checkbox" id="stopAutoplay" /><span class="t">Chặn autoplay video<small>vẫn bấm play thủ công được</small></span></label>
+    <label><input type="checkbox" id="hideRightRail" /><span class="t">Ẩn cột phải</span></label>
+
+    <div class="note">
+      Để chặn quảng cáo triệt để hơn, dùng kèm <b>uBlock Origin</b>.
+      Thay đổi áp dụng ngay, có thể cần cuộn nhẹ để feed cập nhật.
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
